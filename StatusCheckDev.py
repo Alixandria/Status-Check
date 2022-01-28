@@ -3,16 +3,19 @@ import os
 import disnake
 from disnake.ext import commands
 
+# List of guilds that the bot is allowed to function in
 bot = commands.Bot(
     test_guilds=[356517560855953410, 878732786457002025, 241029406796152834], intents=disnake.Intents.all()
 
 )
 
+# Statuses that are allowed can be changed by replacing the terms in quotes, or adding more after with a comma
 ALLOWED_STATUSES = ["Available", "Unavailable", "Slow to Respond", "Mobile Only", "On Break"]
 USER_STATUSES = {}
 TOKEN = os.getenv("BOT_TOKEN")
 
 
+# This is the command allowing you to set your status
 @bot.slash_command(description="Set your status!")
 async def status(
         inter: disnake.AppCommandInteraction, new_status: str = commands.Param(choices=ALLOWED_STATUSES)):
@@ -22,6 +25,7 @@ async def status(
     await inter.response.send_message(f"You have set your status to {new_status}", ephemeral=True)
 
 
+# This is what retrieves all statuses from the statuses.json file
 @bot.slash_command(description="Get statuses")
 async def statuses(inter: disnake.AppCommandInteraction):
     embed = disnake.Embed(
@@ -42,6 +46,7 @@ async def on_ready():
     print(f'We have logged in as {bot.user}')
 
 
+# Testing!
 @bot.slash_command(description="say hi")
 async def helloworld(inter: disnake.AppCommandInteraction):
     caller = inter.author.mention
@@ -52,6 +57,7 @@ async def helloworld(inter: disnake.AppCommandInteraction):
         allowed_mentions=None, ephemeral=True)
 
 
+# This is how statuses are loaded
 def loadstatuses():
     try:
         with open("statuses.json") as f:
@@ -61,6 +67,7 @@ def loadstatuses():
     USER_STATUSES.update({int(k): v for k, v in statuses.items()})
 
 
-if __name__ == "__main__":
-    loadstatuses()
-    bot.run(TOKEN)
+async def on_error(self, event_method, *args, **kwargs):
+    if __name__ == "__main__":
+        loadstatuses()
+        bot.run(TOKEN)
