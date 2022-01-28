@@ -4,7 +4,7 @@ import disnake
 from disnake.ext import commands
 
 bot = commands.Bot(
-    test_guilds=[356517560855953410], intents=disnake.Intents.all()
+    test_guilds=[356517560855953410, 878732786457002025, 241029406796152834], intents=disnake.Intents.all()
 
 )
 
