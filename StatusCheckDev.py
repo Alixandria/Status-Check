@@ -10,7 +10,7 @@ from lib import BotConfig
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 bot = commands.Bot(
-    test_guilds=[]
+    test_guilds=[356517560855953410, 878732786457002025]
 )
 
 config = BotConfig.get_config()
@@ -97,7 +97,7 @@ async def wallboard(inter: disnake.AppCommandInteraction):
 @bot.slash_command(name="status", description="Set the status for yourself")
 @commands.has_guild_permissions(manage_messages=True)
 async def set_status(inter: disnake.AppCommandInteraction, status: str = commands.Param(choices=STATUSES)):
-    status_db.set(inter.author.id, status)
+    status_db.set(str(inter.author.id), status)
     logging.info(f"User {inter.author} has set their status to {status} via slash command")
     await update_wallboard()
     await inter.response.send_message(f"Your status has been set to {status}.", ephemeral=True)
@@ -112,7 +112,7 @@ async def statusadm(inter: disnake.AppCommandInteraction):
 @statusadm.sub_command(name="set", description="Change a user's status")
 async def force_set_status(inter: disnake.AppCommandInteraction, user: disnake.Member,
                            status: str = commands.Param(choices=STATUSES)):
-    status_db.set(user.id, status)
+    status_db.set(str(user.id), status)
     logging.info(f"User {user} has had status changed to {status}")
     await update_wallboard()
     await inter.response.send_message(f"The status for {user.mention} has been set to {status}.", ephemeral=True)
