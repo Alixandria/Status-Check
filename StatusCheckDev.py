@@ -142,3 +142,5 @@ async def on_message_interaction(interaction: disnake.MessageInteraction):
 
 if __name__ == "__main__":
     bot.run(os.environ['BOT_TOKEN'])
+
+## Huge thank you to all of those that have helped me along the way
