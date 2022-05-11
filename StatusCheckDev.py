@@ -10,7 +10,7 @@ from lib import BotConfig
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 bot = commands.Bot(
-    test_guilds=[356517560855953410, 878732786457002025]
+    test_guilds=[GUILD ID]
 )
 
 config = BotConfig.get_config()
@@ -21,7 +21,7 @@ STATUSES = [
     "❎ Unavailable",
     "🕰️ Slow to Respond",
     "📱 Mobile Only",
-    "✈ On Break",
+    " ✈ On Break",
 ]
 
 
