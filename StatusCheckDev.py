@@ -68,7 +68,6 @@ async def on_ready():
 
 
 @bot.slash_command(description="Create a Status Board to track statuses for users")
-@commands.has_guild_permissions(manage_channels=True)
 async def wallboard(inter: disnake.AppCommandInteraction):
     wallboard_config = config.get('wallboard', {})
 
@@ -95,7 +94,6 @@ async def wallboard(inter: disnake.AppCommandInteraction):
 
 
 @bot.slash_command(name="status", description="Set the status for yourself")
-@commands.has_guild_permissions(manage_messages=True)
 async def set_status(inter: disnake.AppCommandInteraction, status: str = commands.Param(choices=STATUSES)):
     status_db.set(str(inter.author.id), status)
     logging.info(f"User {inter.author} has set their status to {status} via slash command")
@@ -104,7 +102,6 @@ async def set_status(inter: disnake.AppCommandInteraction, status: str = command
 
 
 @bot.slash_command(description="Administration Commands")
-@commands.has_guild_permissions(manage_channels=True)
 async def statusadm(inter: disnake.AppCommandInteraction):
     pass
 
